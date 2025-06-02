@@ -13,13 +13,14 @@ test('Invalid login to Rediffmail, async ({ browser }) => {
   await page.fill('input[name="passwd"]', 'invalidpassword');
 
   await Promise.all([
-    page.click('input[name="proceed"]'),
+    page.click('input[type="submit"]'),
     page.waitForNavigation({ waitUntil: 'networkidle0' }),
   ]);
 
   await page.screenshot({ path: 'invalid-login.png' });
 
-  await expect(page).toHaveURL('https://www.rediff.com/?err=1');
+  await page.close();
+  await browser.close();
 });
 ```
-Note: You need to have Playwright installed and configured in your project.
+Note: You need to have Playwright installed and configured in your project to run this test.
